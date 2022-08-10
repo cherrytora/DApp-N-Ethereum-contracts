@@ -14,7 +14,7 @@
 預計20220811會把所有流程和檔案上傳
 
 ## Steps
-1.
+1. `npm install --save -dev hardhat`
 2.
 3.
 4.
