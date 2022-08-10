@@ -14,8 +14,12 @@
 預計20220811會把所有流程和檔案上傳
 
 ## Steps
+### 建立自己的 Token
 1. `npm install --save -dev hardhat`
-2.
+2. `npx hardhat` 
+![](figures/hardhat_init.png)
+後面會用React來建立DApp，所以這邊選第一個。
 3.
 4.
 
+### 利用React建立DApp
