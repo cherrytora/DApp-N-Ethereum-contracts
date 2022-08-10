@@ -54,7 +54,7 @@ npx hardhat run scripts/deploy.js --network rinkeby
 10. 複製這個token address就可以加到matamask囉！
 ![](figures/matamask.png)
 
-* 小提醒：如果合約內容有更改的話，都要在重新compile
+* 小提醒：如果合約內容有更改的話，都要再重新compile
 
 ### 利用React建立DApp
 1. `npx create-react-app <<app name>>`
