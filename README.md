@@ -13,9 +13,6 @@
 * 小提醒1：Rinkeby測試鏈2022/10/05就不支援了，建議測試換到Goerli測試鏈。我懶得領測試幣，所以在還有一些餘額的Rinkeby上測試XD
 * 小提醒2：Hardhat的[boilerplate repo](https://github.com/NomicFoundation/hardhat-boilerplate)可以直接RUN起一個DApp，但是我想要建立自己的Token，所以沒有用他的repo，懶惰的人可以直接去看boilerplate repo就好了～
 
-龜速更新中.....
-預計20220811會把所有流程和檔案上傳
-
 ## Steps
 ### Hardhat前置作業
 1. `npm install --save -dev hardhat`
