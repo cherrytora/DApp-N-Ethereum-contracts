@@ -20,21 +20,21 @@
 ### Hardhat前置作業
 1. `npm install --save -dev hardhat`
 2. `npx hardhat` 
-![](figures/hardhat_init.png)
+![](images/hardhat_init.png)
 後面會用React來建立DApp，所以這邊選第一個。
 3. `npm install @openzeppelin/contracts`
 這可選擇要不要裝，這是用openzeppelin來產生合約的套件，合約也可以用hardhat提供的範本或自己寫
 
 ### 建立自己的 Token
 1. 利用[openzeppelin](https://docs.openzeppelin.com/contracts/4.x/wizard)建立自己的Token
-![](figures/openzepplin.png)
+![](images/openzepplin.png)
 2. openzeppelin都填好了之後也可以直接下載[檔案](hardhat/contracts/PokenTest.sol)，放到contract資料夾裡～
     * 這邊要注意solidity的版本，在openzeppelin預設的是^0.8.4，要改成跟hardhat.config裡面一樣的"0.8.9"
 3. 去[Alchemyapi](https://dashboard.alchemyapi.io/)申請API_URL
 
-    step1. ![](figures/API_step1.png)
-    step2. 這邊選Goerli比較好喔![](figures/API_step2.png)
-    step3. 這邊點下去可以看到URL和API KEY![](figures/API_step3.png)
+    step1. ![](images/API_step1.png)
+    step2. 這邊選Goerli比較好喔![](images/API_step2.png)
+    step3. 這邊點下去可以看到URL和API KEY![](images/API_step3.png)
 
 4. 建立一個.env檔案，內容如下：私鑰很重要，不要被別人看到了！
 ```
@@ -51,13 +51,13 @@ PRIVATE_KEY= 你的錢包私鑰
 npx hardhat test
 npx hardhat run scripts/deploy.js --network rinkeby
 ```
-![](figures/test_success.png)
+![](images/test_success.png)
 9. deploy成功會出現token的address
 `Poken address: 0x73715Ec8e26FF669F246753699e618871E430f52`
-![](figures/deploy_success.png) 
+![](images/deploy_success.png) 
 
 10. 複製這個token address就可以加到matamask囉！
-![](figures/matamask.png)
+![](images/matamask.png)
 
 * 小提醒：如果合約內容有更改的話，都要再重新compile
 
