@@ -53,7 +53,6 @@ npx hardhat run scripts/deploy.js --network rinkeby
 ```
 ![](images/test_success.png)
 9. deploy成功會出現token的address
-`Poken address: 0x73715Ec8e26FF669F246753699e618871E430f52`
 ![](images/deploy_success.png) 
 
 10. 複製這個token address就可以加到matamask囉！
