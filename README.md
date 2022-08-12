@@ -11,7 +11,7 @@
 6. [boilerplate repo](https://github.com/NomicFoundation/hardhat-boilerplate)
 
 * 小提醒1：Rinkeby測試鏈2022/10/05就不支援了，建議測試換到Goerli測試鏈。我懶得領測試幣，所以在還有一些餘額的Rinkeby上測試XD
-* 小提醒2：Hardhat的[boilerplate repo](https://github.com/NomicFoundation/hardhat-boilerplate)可以直接RUN起一個DApp，但是我想要建立自己的Token，所以沒有用他的repo，懶惰的人可以直接去看boilerplate repo就好了～
+* 小提醒2：Hardhat的[boilerplate repo](https://github.com/NomicFoundation/hardhat-boilerplate)可以直接RUN起一個DApp，但是我想要建立自己的Token，所以沒有全部都用他的repo，只截取了一部分，懶惰的人可以直接去看boilerplate repo就好了～
 
 ## Steps
 ### Hardhat前置作業
@@ -77,7 +77,7 @@ npm start
 3. 在contract資料夾中建立`contract-address.json` 裡面放你的token address
 ```
 {
-    Token : "tour token address"
+    Token : "your token address"
 }
 ```
 4. 把把[boilerplate repo](https://github.com/NomicFoundation/hardhat-boilerplate)的index.js內容複製到專案的index.js中。記得要在`frontend/package.json`中加入`"bootstrap": "^4.4.1"`
