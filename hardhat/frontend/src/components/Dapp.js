@@ -7,6 +7,8 @@ import { ethers } from "ethers";
 // using them with ethers
 import PokenCoin from "../contract/PokenTest.json";
 import contract_address from "../contract/contract-address.json";
+import WTnft from "../contract/WorldTrip.json";
+import { MintNFT } from "./Mint";
 
 // All the logic of this dapp is contained in the Dapp component.
 // These other components are just presentational ones: they don't have any
@@ -18,6 +20,7 @@ import { Transfer } from "./Transfer";
 import { TransactionErrorMessage } from "./TransactionErrorMessage";
 import { WaitingForTransactionMessage } from "./WaitingForTransactionMessage";
 import { NoTokensMessage } from "./NoTokensMessage";
+
 
 // This is the Hardhat Network id that we set in our hardhat.config.js.
 // Here's a list of network ids https://docs.metamask.io/guide/ethereum-provider.html#properties
@@ -155,6 +158,13 @@ export class Dapp extends React.Component {
                 tokenSymbol={this.state.tokenData.symbol}
               />
             )}
+            {
+              <MintNFT
+              mintNFT={(to) =>
+                this._mintNFT(to)
+              }
+            />
+            }
           </div>
         </div>
       </div>
@@ -234,15 +244,16 @@ export class Dapp extends React.Component {
       PokenCoin.abi,
       this._provider.getSigner(0)
     );
-  }
 
-  // The next two methods are needed to start and stop polling data. While
-  // the data being polled here is specific to this example, you can use this
-  // pattern to read any data from your contracts.
-  //
-  // Note that if you don't need it to update in near real time, you probably
-  // don't need to poll it. If that's the case, you can just fetch it when you
-  // initialize the app, as we do with the token data.
+    this._nft = new ethers.Contract(
+      contract_address.WorldTrip,
+      WTnft.abi,
+      this._provider.getSigner(0)
+    );
+
+    }
+
+
   _startPollingData() {
     this._pollDataInterval = setInterval(() => this._updateBalance(), 1000);
 
@@ -273,18 +284,6 @@ export class Dapp extends React.Component {
   // While this action is specific to this application, it illustrates how to
   // send a transaction.
   async _transferTokens(to, amount) {
-    // Sending a transaction is a complex operation:
-    //   - The user can reject it
-    //   - It can fail before reaching the ethereum network (i.e. if the user
-    //     doesn't have ETH for paying for the tx's gas)
-    //   - It has to be mined, so it isn't immediately confirmed.
-    //     Note that some testing networks, like Hardhat Network, do mine
-    //     transactions immediately, but your dapp should be prepared for
-    //     other networks.
-    //   - It can fail once mined.
-    //
-    // This method handles all of those things, so keep reading to learn how to
-    // do it.
 
     try {
       // If a transaction fails, we save that error in the component's state.
@@ -329,6 +328,40 @@ export class Dapp extends React.Component {
     }
   }
 
+  async _mintNFT(to) {
+    try {      
+      this._dismissTransactionError();
+      const tx = await this._nft.safeMint(to); //去看合約裡有什麼finction可以用
+      this.setState({ txBeingSent: tx.hash });
+
+      // We use .wait() to wait for the transaction to be mined. This method
+      // returns the transaction's receipt.
+      const receipt = await tx.wait();
+
+      // The receipt, contains a status flag, which is 0 to indicate an error.
+      if (receipt.status === 0) {
+        // We can't know the exact error that made the transaction fail when it
+        // was mined, so we throw this generic one.
+        throw new Error("Mint failed");
+      }
+    } catch (error) {
+      // We check the error code to see if this error was produced because the
+      // user rejected a tx. If that's the case, we do nothing.
+      if (error.code === ERROR_CODE_TX_REJECTED_BY_USER) {
+        return;
+      }
+
+      // Other errors are logged and stored in the Dapp's state. This is used to
+      // show them to the user, and for debugging.
+      console.error(error);
+      this.setState({ transactionError: error });
+    } finally {
+      // If we leave the try/catch, we aren't sending a tx anymore, so we clear
+      // this part of the state.
+      this.setState({ txBeingSent: undefined });
+    }
+  }
+
   // This method just clears part of the state.
   _dismissTransactionError() {
     this.setState({ transactionError: undefined });
@@ -338,7 +371,6 @@ export class Dapp extends React.Component {
   _dismissNetworkError() {
     this.setState({ networkError: undefined });
   }
-
   // This is an utility method that turns an RPC error into a human readable
   // message.
   _getRpcErrorMessage(error) {

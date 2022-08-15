@@ -47,6 +47,7 @@
 部署NFT和token的過程是一樣的
 1. 去openzeppelin做一個基礎版的合約，這邊跟token不一樣的是要選擇721，選好後下載放到`hardhat/contracts`
 ![](images/openzepplin_721.png)
+* 這邊要注意，填入合約個URL是json的URL喔！不是照片的URL
 2. 建立 test 和deploy檔案，進行compile和test
 
 ```
@@ -65,6 +66,11 @@ npx hardhat run scripts/deploy_WT.js --network rinkeby
 
 ### Mint & 加入 DApp
 ....更新中
+
+Mint.js
+dapp.js
+
+
 
  
  

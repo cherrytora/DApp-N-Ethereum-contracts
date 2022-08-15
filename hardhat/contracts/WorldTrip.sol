@@ -13,7 +13,7 @@ contract WorldTrip is ERC721, Ownable {
     constructor() ERC721("WorldTrip", "WLT") {}
 
     function _baseURI() internal pure override returns (string memory) {
-        return "https://ipfs.io/ipfs/QmPbapkW5E2Z6MGsrXV9eXPJ9RUEXNFauNHrT2Lx2gaR7w?filename=WT_UYUNI.jpg";
+        return "https://ipfs.io/ipfs/QmXXJHFRtGuFPVKj5Eu55oe61EEpnkw92ykBguARs7XcUh?filename=WT_UYUNI.json";
     }
 
     function safeMint(address to) public onlyOwner {
