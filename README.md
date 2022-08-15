@@ -1,6 +1,6 @@
 # DApp-tutorial
-### Hardhat 新手上路
-分享參考各式教學在以太Rinkeby測試鏈上建立一個自己的Token和DApp
+## Hardhat 新手上路
+筆記參考各式教學在以太Rinkeby測試鏈上建立一個自己的Token和DApp
 
 參考資料：
 1. [hardhat tutorial](https://hardhat.org/tutorial)
@@ -43,8 +43,9 @@ PRIVATE_KEY= 你的錢包私鑰
     * `npm install dotenv --save`
 6. 修改[deploy](hardhat/scripts/deploy.js)檔案
 7. 修改[test](hardhat/test/Test.js)檔案
-8. test完OK就deploy
+8. compile、test完OK就deploy
 ```
+npx hardhat compile
 npx hardhat test
 npx hardhat run scripts/deploy.js --network rinkeby
 ```
@@ -123,9 +124,13 @@ _checkNetwork() {
 
 8. `npm install`
 9. `npm run`
-10. 恭喜你！完成一個可以連結錢包和有轉帳功能的Dapp了！
+10. 完成一個可以連結錢包和有轉帳功能的Dapp了！
 
 ![](images/Dapp_index.png)
 
 ![](images/transfer.png)
+
+### 發行自己的NFT
+
+* 發行NFT和把NFT加入DApp的流程放在[這裡](createNFT.md)喔！
 
