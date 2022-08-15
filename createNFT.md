@@ -53,11 +53,11 @@
 npx hardhat compile
 npx hardhat test
 ``` 
-    * 如果想要只執行test資料夾裡面的一個檔案，可以這樣下指令
-    ```
-    npx hardhat test test/Test_WT.js
-    npx hardhat test <folder>/<file name>.js
-    ```
+* 如果想要只執行test資料夾裡面的一個檔案，可以這樣下指令
+```
+npx hardhat test test/Test_WT.js
+npx hardhat test <folder>/<file name>.js
+```
 3. 都沒問題後就可以deploy，拿到address
 ```
 npx hardhat run scripts/deploy_WT.js --network rinkeby
