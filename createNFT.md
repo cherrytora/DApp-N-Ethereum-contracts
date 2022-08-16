@@ -74,11 +74,11 @@ deploy完之後要接著Mint和加入我們的DApp
 #### 在[dapp.js](hardhat/frontend/src/components/Dapp.js)中，加入我們要Mint的步驟。
 1. 在contract_address檔案中加入剛剛deploy的NFT address
 2. 在import的地方加入 import compile NFT合約後產生的json檔
-```
+```javascript
 import WTnft from "../contract/WorldTrip.json";
 ```
 3. import 剛剛建好的Mint.js
-```
+```javascript
 import { MintNFT } from "./Mint";
 ```
 4. 在 async _initializeEthers() 中加入我們的NFT
