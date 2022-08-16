@@ -65,13 +65,92 @@ npx hardhat run scripts/deploy_WT.js --network rinkeby
 ```
 
 ### Mint & 加入 DApp
-....更新中
 
-Mint.js
-dapp.js
+deploy完之後要接著Mint和加入我們的DApp
+
+#### 新增Mint.js檔案
+* 在`components`資料夾中新增Mnit.js檔，用來進行Mint剛剛deploy的NFT。Mint的過程和Transfer很類似，可以複製Transfer的檔案來改就好。細節記錄在[Mint.js](hardhat/frontend/src/components/Mint.js)中
+
+#### 在[dapp.js](hardhat/frontend/src/components/Dapp.js)中，加入我們要Mint的步驟。
+1. 在contract_address檔案中加入剛剛deploy的NFT address
+2. 在import的地方加入 import compile NFT合約後產生的json檔
+```
+import WTnft from "../contract/WorldTrip.json";
+```
+3. import 剛剛建好的Mint.js
+```
+import { MintNFT } from "./Mint";
+```
+4. 在 async _initializeEthers() 中加入我們的NFT
+```javascript
+async _initializeEthers() {
+    // We first initialize ethers by creating a provider using window.ethereum
+    this._provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    // Then, we initialize the contract using that provider and the token's
+    // artifact. You can do this same thing with your contracts.
+    this._token = new ethers.Contract(
+      contract_address.PokenTest,
+      PokenCoin.abi,
+      this._provider.getSigner(0)
+    );
+    //  initialize the NFT artifact
+    this._nft = new ethers.Contract(
+      contract_address.WorldTrip,
+      WTnft.abi,
+      this._provider.getSigner(0)
+    );
+
+    }
+```
+5. 在_transferTokens下面，加入_mintNFT function，transferTokens和mintNFT的過程很像，可以複製_transferTokens的來改。
+```javascript
+async _mintNFT(to) {
+    try {      
+      this._dismissTransactionError();
+      // 這邊的this._nft就是上面initial的東西
+      // safeMint則是回去看合約裡的function是什麼
+      const tx = await this._nft.safeMint(to); 
+
+      // 其他部分都跟transferTokens一樣
+      this.setState({ txBeingSent: tx.hash });
+
+      const receipt = await tx.wait();
+
+      
+      if (receipt.status === 0) {
+        throw new Error("Mint failed");
+      }
+    } catch (error) {
+      if (error.code === ERROR_CODE_TX_REJECTED_BY_USER) {
+        return;
+      }
+      console.error(error);
+      this.setState({ transactionError: error });
+    } finally {
+      this.setState({ txBeingSent: undefined });
+    }
+  }
+```
+
+6. 加入下面的程式碼，讓Dapp去調用MintNFT中取addree的部分，並傳到上面的this._mintNFT裡面
+```javascript
+{
+    <MintNFT
+    mintNFT={(to) =>
+    this._mintNFT(to)
+    }
+    />
+            }
+```
+7. 都好了之後，`npm start`之後就會看到NFT加在原先的token下面啦
+
+![](images/DappwithNTF.png)
+
+8. 可以把NFT轉給自己，去[opensea testnet](https://testnets.opensea.io/zh-CN)連結錢包就看得到囉！
+
+![](images/opensea_testnet.png)
 
 
-
- 
  
 

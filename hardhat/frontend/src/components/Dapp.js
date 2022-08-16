@@ -244,7 +244,7 @@ export class Dapp extends React.Component {
       PokenCoin.abi,
       this._provider.getSigner(0)
     );
-
+    //  initialize the NFT artifact
     this._nft = new ethers.Contract(
       contract_address.WorldTrip,
       WTnft.abi,
@@ -331,7 +331,9 @@ export class Dapp extends React.Component {
   async _mintNFT(to) {
     try {      
       this._dismissTransactionError();
-      const tx = await this._nft.safeMint(to); //去看合約裡有什麼finction可以用
+      // 這邊的this._nft就是上面initial的東西
+      // safeMint則是回去看合約裡的function是什麼
+      const tx = await this._nft.safeMint(to); 
       this.setState({ txBeingSent: tx.hash });
 
       // We use .wait() to wait for the transaction to be mined. This method
