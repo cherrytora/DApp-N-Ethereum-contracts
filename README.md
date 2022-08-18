@@ -2,6 +2,9 @@
 ## Hardhat 新手上路
 筆記參考各式教學在以太Rinkeby測試鏈上建立一個自己的Token和DApp
 
+* 這邊只有發行token的筆記，發行NFT和把NFT加入DApp的筆記在[這裡](createNFT.md)
+* 發行盲盒的筆記還在生產中......
+
 參考資料：
 1. [hardhat tutorial](https://hardhat.org/tutorial)
 2. [完整的Hardhat實踐教程](https://medium.com/my-blockchain-development-daily-journey/%E5%AE%8C%E6%95%B4%E7%9A%84hardhat%E5%AF%A6%E8%B8%90%E6%95%99%E7%A8%8B-a9b005aa4c12)
@@ -129,8 +132,3 @@ _checkNetwork() {
 ![](images/Dapp_index.png)
 
 ![](images/transfer.png)
-
-### 發行自己的NFT
-
-* 發行NFT和把NFT加入DApp的流程放在[這裡](createNFT.md)喔！
-

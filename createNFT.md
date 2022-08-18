@@ -151,6 +151,15 @@ async _mintNFT(to) {
 
 ![](images/opensea_testnet.png)
 
+9. 地雷！NFT的ID似乎應該要從1開始，而不是0，所以我mint的時候ID = 0的那一張NFT無法顯示，所以程式碼要從
+```s
+constructor() ERC721("WorldTrip", "WLT") {}
+```
+改成
+```s
+constructor() ERC721("WorldTrip", "WLT") { _tokenIdCounter.increment(); }
+```
+[參考](https://ethereum.stackexchange.com/questions/126737/token-id-0-minted-error)
 
  
 
