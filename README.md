@@ -3,7 +3,7 @@
 
 跟著PecuLab一起在Ethereum測試鏈Rinkeby上部署合約和基礎DApp互動筆記
 1. [發行自己的代幣(Token)](CreateToken.md) --E20
-2. [發行可空投NFT](CreateNFT.md) --E721
+2. [發行可空投NFT](createNFT.md) --E721
 3. [在發行NFT的smart contract中加入可互動funciton](AddContractFunction.md) --E721
 4. 如何一張合約中包含不同圖片和他們各自相對應的屬性 ...還在努力中
 5. 發行盲盒 ...還在努力中
