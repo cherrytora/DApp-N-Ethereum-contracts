@@ -8,7 +8,9 @@ import { ethers } from "ethers";
 import PokenCoin from "../contract/PokenTest.json";
 import contract_address from "../contract/contract-address.json";
 import WTnft from "../contract/WorldTrip.json";
+import WTMLnft from "../contract/WTMultiLocation.json";
 import { MintNFT } from "./Mint";
+import { MintWTML } from "./MintWTML";
 
 // All the logic of this dapp is contained in the Dapp component.
 // These other components are just presentational ones: they don't have any
@@ -160,10 +162,17 @@ export class Dapp extends React.Component {
             )}
             {
               <MintNFT
-              mintNFT={(to) =>
+                mintNFT={(to) =>
                 this._mintNFT(to)
               }
             />
+            }
+            {
+              <MintWTML
+                mintWTML={(to, tokenURI) =>
+                  this._mintWTML(to, tokenURI) //這裡的this是調用下面寫的async function
+                }
+              />
             }
           </div>
         </div>
@@ -244,10 +253,18 @@ export class Dapp extends React.Component {
       PokenCoin.abi,
       this._provider.getSigner(0)
     );
+
     //  initialize the NFT artifact
     this._nft = new ethers.Contract(
       contract_address.WorldTrip,
       WTnft.abi,
+      this._provider.getSigner(0)
+    );
+
+    // initialize  WTMultiLocation artifact
+    this._WTML = new ethers.Contract(
+      contract_address.WorldTripMulti,
+      WTMLnft.abi,
       this._provider.getSigner(0)
     );
 
@@ -360,6 +377,26 @@ export class Dapp extends React.Component {
     } finally {
       // If we leave the try/catch, we aren't sending a tx anymore, so we clear
       // this part of the state.
+      this.setState({ txBeingSent: undefined });
+    }
+  }
+
+  async _mintWTML(to, tokenURI){
+    try {      
+      this._dismissTransactionError();
+      const tx = await this._WTML.mint(to, tokenURI);  
+      const receipt = await tx.wait();
+      if (receipt.status === 0) {
+        throw new Error("Mint WTML failed");
+      }
+    } catch (error) {
+      if (error.code === ERROR_CODE_TX_REJECTED_BY_USER) {
+        return;
+      }
+  
+      console.error(error);
+      this.setState({ transactionError: error });
+    } finally {
       this.setState({ txBeingSent: undefined });
     }
   }
