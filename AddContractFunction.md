@@ -176,5 +176,6 @@ async _minWTML(to, tokenURI){
 
 > 筆記寫到這突然好有成就感，真想把所有旅遊的照片通通發成NFT讓大家看到哈哈  
 > 希望疫情趕快結束這樣我就可以繼續我龜速的環遊世界行程ＸＤ
+> 24082022
 
 Back to [README](README.md)
