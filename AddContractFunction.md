@@ -171,6 +171,10 @@ async _minWTML(to, tokenURI){
 ![](images/DappwithMintWTML.png)
 透過我們做的Dapp將不同NFT傳給自己的錢包，在[opensea test](https://testnets.opensea.io/zh-CN)中可以看到，同一份合約可以有不同的NFT
 ![](images/OpenseaMulti.png)
-上面可以看到，最後一張用上次的合約發行的NFT，前面兩張是用這一份合約發行的，tokenID有連續、token名稱相同，呈現不同的NFT
+上面可以看到，最後一張用上次的合約發行的NFT，前面兩張是用這一份合約發行的，tokenID有連續、token名稱相同，呈現不同的NFT，下面是create總攬的截圖～
+![](images/opensea_createpage.png)
+
+筆記寫道這邊突然好有成就感，真想把所有旅遊的照片通通發成NFT讓大家看到哈哈
+希望疫情趕快結束這樣我就可以繼續我龜速的環遊世界行程ＸＤ
 
 Back to [README](README.md)
