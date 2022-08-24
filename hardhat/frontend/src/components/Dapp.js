@@ -9,6 +9,7 @@ import PokenCoin from "../contract/PokenTest.json";
 import contract_address from "../contract/contract-address.json";
 import WTnft from "../contract/WorldTrip.json";
 import WTMLnft from "../contract/WTMultiLocation.json";
+import { Transfer } from "./Transfer";
 import { MintNFT } from "./Mint";
 import { MintWTML } from "./MintWTML";
 
@@ -18,7 +19,6 @@ import { MintWTML } from "./MintWTML";
 import { NoWalletDetected } from "./NoWalletDetected";
 import { ConnectWallet } from "./ConnectWallet";
 import { Loading } from "./Loading";
-import { Transfer } from "./Transfer";
 import { TransactionErrorMessage } from "./TransactionErrorMessage";
 import { WaitingForTransactionMessage } from "./WaitingForTransactionMessage";
 import { NoTokensMessage } from "./NoTokensMessage";
