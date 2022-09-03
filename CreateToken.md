@@ -79,7 +79,7 @@ npm start
     Token : "your token address"
 }
 ```
-4. 把把[boilerplate repo](https://github.com/NomicFoundation/hardhat-boilerplate)的index.js內容複製到專案的index.js中。記得要在`frontend/package.json`中加入`"bootstrap": "^4.4.1"`
+4. 把[boilerplate repo](https://github.com/NomicFoundation/hardhat-boilerplate)的index.js內容複製到專案的index.js中。記得要在`frontend/package.json`中加入`"bootstrap": "^4.4.1"`
 5. 修改`frontend/src/components/Dapp.js`檔案，把自己的token設定加入Dapp中
 ```javascript
 import PokenCoin from "../contract/<your token>.json";
