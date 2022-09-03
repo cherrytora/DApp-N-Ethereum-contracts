@@ -1,4 +1,4 @@
-# DApp-tutorial
+# DApp-tutorial ＆ Ethereum contracts
 ## Hardhat 新手上路
 
 跟著PecuLab一起在Ethereum測試鏈Rinkeby上部署合約和基礎DApp互動筆記
@@ -16,5 +16,6 @@
 5. [React tutorial](https://create-react-app.dev/docs/getting-started)
 
 * 小提醒：Rinkeby測試鏈2022/10/05就不支援了，建議測試換到Goerli測試鏈。我懶得領測試幣，所以在還有一些餘額的Rinkeby上測試
+* 突然覺得這個名字不應該取DApp-tutorial，叫Ethereum contracts好像比較適合XD
 
 

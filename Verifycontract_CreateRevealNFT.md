@@ -63,7 +63,7 @@ npx hardhat verify --contract contracts/PokenTest.sol:PokenTest --network rinkeb
 ```
 #### 然後就成功了！
 ![](images/verify_success.png)
-回去Etherscan看，明碼就跑出囉！
+回去Etherscan看，合約明碼就出現了喔！
 - 這邊有一件事很有趣，進行驗證的合約地址是[0x73715Ec8e26FF669F246753699e618871E430f52](https://rinkeby.etherscan.io/address/0x73715Ec8e26FF669F246753699e618871E430f52#code)，但是當我點到另一份bytecode一樣但合約地址不同的那份合約([0x0268E137120fD1De21e5e883979396A851462ac9](https://rinkeby.etherscan.io/address/0x0268E137120fD1De21e5e883979396A851462ac9))，也一起得到驗證了，不確定是不是bytecode的會一起通過，希望有大神可以告訴我，哈哈～
 
 - 我驗證的那份合約
