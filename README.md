@@ -5,7 +5,7 @@
 1. [發行自己的代幣(Token)](CreateToken.md) --E20
 2. [發行可空投NFT](createNFT.md) --E721
 3. [在發行NFT的smart contract中加入可互動funciton](AddContractFunction.md) --E721
-4. [驗證合約 & 代銷合約](Verifycontract_CreateRevealNFT.md) ...還在努力中
+4. [驗證合約 & 代銷合約](Verifycontract_Vendorcontract.md) ...還在努力中
 5. 發行盲盒 ...還在努力中
 
 ### 參考資料：
