@@ -1,10 +1,9 @@
-# Verify contract and Create Reveal NFT
+# Verify contract and Create Vendor contract
 
 參考資料：
-1. [PecuLab Youtube Video (Verify)](https://youtu.be/4kCZ4OsZx9Q)
-2. [PecuLab Youtube Video (Reveal)](https://youtu.be/3hMidO1TNT8)
-3. [hardhat-etherscan](https://hardhat.org/hardhat-runner/plugins/nomiclabs-hardhat-etherscan)
-4. [solidity_smart_contracts](https://github.com/HashLips/solidity_smart_contracts/blob/main/contracts/NFT/NFT_REVEAL.sol)
+1. [PecuLab Youtube Video](https://youtu.be/4kCZ4OsZx9Q)
+2. [hardhat-etherscan](https://hardhat.org/hardhat-runner/plugins/nomiclabs-hardhat-etherscan)
+3. [solidity_smart_contracts](https://github.com/HashLips/solidity_smart_contracts/blob/main/contracts/NFT/NFT_REVEAL.sol)
 
 ## Verify contract
 * 驗證合約的重要性:合約部署之後，在Ethersacn上只會出現bytecode，而不會出現合約明碼（也就是我們寫的code)，在這樣的狀況下其他人無法閱讀我們的合約內容，也沒辦法得知實際上這個合約提供了哪些function可以使用。驗證完之後才會出現合約的明碼，也能看到有哪些function可以使用。透過這些驗證過的合約，我們可以去看合約的提供商是不是真的提供了他們宣告的功能，或者去比對合約的用處是否跟他們宣告的一樣，確認合約中提供的function和提供商說宣稱一致，才表示這個合約可信、可互動喔。
@@ -71,5 +70,5 @@ npx hardhat verify --contract contracts/PokenTest.sol:PokenTest --network rinkeb
 - bytecode相同但沒有進行驗證的合約一起得到驗證了
 ![](images/0x0268E137120fD1De21e5e883979396A851462ac9.png)
 
-## Create Reveal NFT
+## Create Vendor NFT
 ......待續
