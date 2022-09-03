@@ -11,7 +11,7 @@
 
 * 注意事項：通常deploy完之後要接著verify，如果deploy完又改了code，verify就不會成功或是有其他麻煩。這次我拿之前發PKT的合約來驗證，就有出現一些ERROR，下面會一起做紀錄
 
-* bytecode!是什麼？像下面這張圖就是bytecode，看起來很像亂碼的東西，沒有驗證過的合約在etherscan上只能看到這個，也不能和合約做互動。[未驗證合約點這邊看](https://rinkeby.etherscan.io/address/0x72ba1ac155298a2bcbf41bba788e80426e23bf27#code)
+* bytecode是什麼？像下面這張圖就是bytecode，看起來很像亂碼的東西，沒有驗證過的合約在etherscan上只能看到這個，也不能和合約做互動。[未驗證合約點這邊看](https://rinkeby.etherscan.io/address/0x72ba1ac155298a2bcbf41bba788e80426e23bf27#code)
 ![bytecode](images/bytecode.png)
 
 * 合約驗證完之後會像下面這樣，除了可以看到合約的code，也可以直接在ethersacn上面做互動～[驗證過的合約點這邊看](https://rinkeby.etherscan.io/address/0x73715Ec8e26FF669F246753699e618871E430f52#code)
