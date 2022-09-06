@@ -96,9 +96,13 @@ npx hardhat verify --network rinkeby <<Contract Address>>
 
 1. 利用metamask把在Account1中的PKT轉到Vendor中，這樣Vendor才有PKT可以賣給別人
 <img src="images/SendPKTtovendor.png" alt="drawing" width="200px"/>
+
 2. 直接在Etherscan中連結Wallet2買PKT（這邊是買1個Ether)
+
 ![](images/buytokenfromvendor.png)
+
 ![](images/Wallet2buyingPKT.png)
+
 結束後回到metamask中，import PKT後就看到我們剛剛買的513個PKT出現了！
 <img src="images/Wallet2_bought.png" alt="drawing" width="200px"/>
 
