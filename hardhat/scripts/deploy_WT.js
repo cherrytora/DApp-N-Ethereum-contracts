@@ -2,7 +2,7 @@ const hre = require("hardhat");
 
 async function main() {
 
-  // 去找PokenTest這個token的合約
+  // 去找WorldTrip這個token的合約
   const WorldTrip = await hre.ethers.getContractFactory("WorldTrip"); 
   // deploy
   const worldtrip = await WorldTrip.deploy();
