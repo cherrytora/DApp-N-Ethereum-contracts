@@ -95,12 +95,13 @@ npx hardhat verify --network rinkeby <<Contract Address>>
 * [PKT vendor contract on etherscan](https://rinkeby.etherscan.io/address/0xf4272E45184099ac2f084601b8956a25fDF967D0)
 
 1. 利用metamask把在Account1中的PKT轉到Vendor中，這樣Vendor才有PKT可以賣給別人
-![](images/SendPKTtovendor.png)
+<img src="images/SendPKTtovendor.png" alt="drawing" width="200px"/>
 2. 直接在Etherscan中連結Wallet2買PKT（這邊是買1個Ether)
 ![](images/buytokenfromvendor.png)
 ![](images/Wallet2buyingPKT.png)
 結束後回到metamask中，import PKT後就看到我們剛剛買的513個PKT出現了！
-![](images/Wallet2_bought.png)
+<img src="images/Wallet2_bought.png" alt="drawing" width="200px"/>
+
 3. 在Etherscan中可以看到ERC20兩筆交易，分別是PKT放到Vendor中和Wallet2買PKT的紀錄
 ![](images/VendorE20logs.png)
 4. 另外在transaction的地方也可以看到value變成1個Ether囉！後面可以回到Easerscan把Ether提出來
