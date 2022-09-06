@@ -104,6 +104,7 @@ npx hardhat verify --network rinkeby <<Contract Address>>
 ![](images/Wallet2buyingPKT.png)
 
 結束後回到metamask中，import PKT後就看到我們剛剛買的513個PKT出現了！
+
 <img src="images/Wallet2_bought.png" alt="drawing" width="200px"/>
 
 3. 在Etherscan中可以看到ERC20兩筆交易，分別是PKT放到Vendor中和Wallet2買PKT的紀錄
