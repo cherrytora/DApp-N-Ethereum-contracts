@@ -1,0 +1,29 @@
+{ 
+    "image":"https://ipfs.io/ipfs/QmRPLPk6ad3rVt7CwzDRUniNdH7GGtFBTgSf6JBUfYEmRK?filename=WT_WATMAHATHAT.jpg",
+    "attributes":
+        [
+            {
+                "trait_type":"background",
+                "value":"World Trip"
+            },
+            {
+                "trait_type":"city",
+                "value":"Bangkok"
+            },
+            {
+                "trait_type":"country",
+                "value":"Thailand"
+
+            },
+            {
+                "trait_type":"location",
+                "value":"Wat Maha That"
+
+            },
+            {
+                "trait_type":"source",
+                "value":"Sirius"
+            }
+            
+        ]
+}
