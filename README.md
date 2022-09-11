@@ -6,7 +6,7 @@
 2. [發行可空投NFT](createNFT.md) --ERC 721
 3. [在發行NFT的smart contract中加入可互動funciton](AddContractFunction.md) --ERC 721
 4. [驗證合約 & 代銷合約](Verifycontract_Vendorcontract.md) 
-5. [發行盲盒](Blindbox.md) ...還在努力中 --ERC 721 Enumerable
+5. [發行盲盒](blindbox.md) ...還在努力中 --ERC 721 Enumerable
 
 ### 參考資料：
 1. [PecuLab共學Youtube list](https://www.youtube.com/playlist?list=PLH3VeiMX0ckiCqHLpLIBOMXQRtF_Vs3Eo)
