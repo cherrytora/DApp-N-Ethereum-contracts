@@ -8,7 +8,7 @@ async function main() {
   const _name = "BlindBox";
   const _symbol = "BDB";
   // 解盲後的URL資料夾
-  const _initBaseURI = "";
+  const _initBaseURI = "https://raw.githubusercontent.com/cherrytora/DApp-tutorial/main/blindBox/";
   // 盲盒的URL
   const _initNotRevealedUri = "https://ipfs.io/ipfs/QmV8FTC94m9gpWzWPBETg8Fe614CjwPyUmx7txwfr6M3Xb?filename=blindBox.json";
   
