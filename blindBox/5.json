@@ -1,0 +1,27 @@
+{ 
+    "image":"https://ipfs.io/ipfs/QmaSasC3SuXrdHQ8GhtTULxpE1tfqhUWeRZwn2PWfuqo9Q?filename=WT_WATARUN.jpg",
+    "attributes":
+        [
+            {
+                "trait_type":"background",
+                "value":"World Trip"
+            },
+            {
+                "trait_type":"city",
+                "value":"Bangkok"
+            },
+            {
+                "trait_type":"country",
+                "value":"Thailand"
+            },
+            {
+                "trait_type":"location",
+                "value":"Wat Arun"
+            },
+            {
+                "trait_type":"source",
+                "value":"Sirius"
+            }
+            
+        ]
+}

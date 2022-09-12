@@ -17,23 +17,19 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract Blindbox is ERC721Enumerable, Ownable, AccessControl {
-  
-  bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-
+contract Blindbox is ERC721Enumerable, Ownable {
   using Strings for uint256;
 
   string public baseURI;
   string public baseExtension = ".json";
-  uint256 public cost = 0.05 ether; //一張多少錢
-  uint256 public maxSupply = 10000; //總共發行量
-  uint256 public maxMintAmount = 20; //一次最多可以買幾張
-  bool public paused = false; //是否停賣
-  bool public revealed = false; //是否解盲
-  string public notRevealedUri; //不是盲盒狀態的URL
-  mapping(address => bool) public whitelisted; 
+  uint256 public cost = 0.05 ether; // 一張多少錢
+  uint256 public maxSupply = 100; // 一共發行多少張
+  uint256 public maxMintAmount = 5; // 一次可以買幾張
+  bool public paused = false; // 是否停賣
+  bool public revealed = false; //  是否解盲
+  string public notRevealedUri;
+  mapping(address => bool) public whitelisted;
 
   constructor(
     string memory _name,
@@ -43,9 +39,7 @@ contract Blindbox is ERC721Enumerable, Ownable, AccessControl {
   ) ERC721(_name, _symbol) {
     setBaseURI(_initBaseURI);
     setNotRevealedURI(_initNotRevealedUri);
-    mint(msg.sender, 1);
-
-    _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+    mint(msg.sender, 5);
   }
 
   // internal
@@ -53,15 +47,7 @@ contract Blindbox is ERC721Enumerable, Ownable, AccessControl {
     return baseURI;
   }
 
-  function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721Enumerable, AccessControl) returns (bool) {
-    return super.supportsInterface(interfaceId);
-  }  
-
   // public
-  function addRole(address user) public onlyOwner {
-    _setupRole(MINTER_ROLE, user);
-  }
-  
   function mint(address _to, uint256 _mintAmount) public payable {
     uint256 supply = totalSupply();
     require(!paused);
@@ -69,14 +55,15 @@ contract Blindbox is ERC721Enumerable, Ownable, AccessControl {
     require(_mintAmount <= maxMintAmount);
     require(supply + _mintAmount <= maxSupply);
 
-    if (hasRole(MINTER_ROLE, msg.sender) == true) {
-        //if(whitelisted[msg.sender] != true) {
-          //require(msg.value >= cost * _mintAmount);
-        //}
-        for (uint256 i = 1; i <= _mintAmount; i++) {
-          _safeMint(_to, supply + i);
+    if (msg.sender != owner()) {
+        if(whitelisted[msg.sender] != true) {
+          require(msg.value >= cost * _mintAmount);
         }
-    } 
+    }
+
+    for (uint256 i = 1; i <= _mintAmount; i++) {
+      _safeMint(_to, supply + i);
+    }
   }
 
   function walletOfOwner(address _owner)
@@ -114,43 +101,59 @@ contract Blindbox is ERC721Enumerable, Ownable, AccessControl {
         : "";
   }
 
-  //only owner
+  // only owner 
+  // 解盲按鈕(可以解盲跟變成盲盒狀態)
   function reveal() public onlyOwner {
-      revealed = true;
+      if (revealed==true) {
+        revealed = false;
+      }
+      else
+      {
+        revealed = true;
+      }   
   }
   
+  // 設定新的價錢
   function setCost(uint256 _newCost) public onlyOwner {
     cost = _newCost;
   }
 
+  // 設定新的一次最大購買數
   function setmaxMintAmount(uint256 _newmaxMintAmount) public onlyOwner {
     maxMintAmount = _newmaxMintAmount;
   }
   
+  // 設定狀態下的URL
   function setNotRevealedURI(string memory _notRevealedURI) public onlyOwner {
     notRevealedUri = _notRevealedURI;
   }
 
+  // 設定解盲的URL
   function setBaseURI(string memory _newBaseURI) public onlyOwner {
     baseURI = _newBaseURI;
   }
 
+  // 設定setBaseExtension
   function setBaseExtension(string memory _newBaseExtension) public onlyOwner {
     baseExtension = _newBaseExtension;
   }
 
+  // 設定開賣否
   function pause(bool _state) public onlyOwner {
     paused = _state;
   }
  
+ // 寫入白名單user
  function whitelistUser(address _user) public onlyOwner {
     whitelisted[_user] = true;
   }
- 
+
+  // 移除白名單user
   function removeWhitelistUser(address _user) public onlyOwner {
     whitelisted[_user] = false;
   }
 
+  // 領錢
   function withdraw() public payable onlyOwner {
     // This will pay HashLips 5% of the initial sale.
     // You can remove this if you want, or keep it in to support HashLips and his channel.

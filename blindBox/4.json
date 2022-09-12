@@ -1,0 +1,27 @@
+{ 
+    "image":"https://ipfs.io/ipfs/QmPbapkW5E2Z6MGsrXV9eXPJ9RUEXNFauNHrT2Lx2gaR7w?filename=WT_UYUNI.jpg",
+    "attributes":
+        [
+            {
+                "trait_type":"background",
+                "value":"World Trip"
+            },
+            {
+                "trait_type":"city",
+                "value":"Uyuni"
+            },
+            {
+                "trait_type":"country",
+                "value":"Bolivia"
+            },
+            {
+                "trait_type":"location",
+                "value":"Salar de Uyuni"
+            },
+            {
+                "trait_type":"source",
+                "value":"Sirius"
+            }
+            
+        ]
+}

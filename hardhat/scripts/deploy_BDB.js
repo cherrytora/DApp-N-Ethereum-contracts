@@ -11,11 +11,10 @@ async function main() {
   const _initBaseURI = "https://raw.githubusercontent.com/cherrytora/DApp-tutorial/main/blindBox/";
   // 盲盒的URL
   const _initNotRevealedUri = "https://ipfs.io/ipfs/QmV8FTC94m9gpWzWPBETg8Fe614CjwPyUmx7txwfr6M3Xb?filename=blindBox.json";
-  
+  // deploy
   const bdb = await BDB.deploy(_name, _symbol, _initBaseURI, _initNotRevealedUri);
-
   await bdb.deployed();
-
+  // 印出address
   console.log("bdb deployed to:", bdb.address);
 }
 
