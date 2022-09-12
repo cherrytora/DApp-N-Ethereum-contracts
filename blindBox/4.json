@@ -1,22 +1,22 @@
 { 
-    "image":"https://ipfs.io/ipfs/QmPbapkW5E2Z6MGsrXV9eXPJ9RUEXNFauNHrT2Lx2gaR7w?filename=WT_UYUNI.jpg",
+    "image":"https://ipfs.io/ipfs/QmUqDWc2QX6Dvg5GAS1yQfESuTTqGhH5JSbtZgMCb5BceC?filename=TW_LANYU.jpg",
     "attributes":
         [
             {
                 "trait_type":"background",
-                "value":"World Trip"
+                "value":"Local Trip"
             },
             {
                 "trait_type":"city",
-                "value":"Uyuni"
+                "value":"Taitung"
             },
             {
                 "trait_type":"country",
-                "value":"Bolivia"
+                "value":"Taiwan"
             },
             {
                 "trait_type":"location",
-                "value":"Salar de Uyuni"
+                "value":"Lanyu"
             },
             {
                 "trait_type":"source",

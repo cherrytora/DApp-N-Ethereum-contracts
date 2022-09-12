@@ -1,22 +1,22 @@
 { 
-    "image":"https://ipfs.io/ipfs/QmaSasC3SuXrdHQ8GhtTULxpE1tfqhUWeRZwn2PWfuqo9Q?filename=WT_WATARUN.jpg",
+    "image":"https://ipfs.io/ipfs/QmTQrXT2V6rx4iTba6anESPpd6AJjx1R4onZQvj6BMuMd8?filename=TW_MATSU.jpg",
     "attributes":
         [
             {
                 "trait_type":"background",
-                "value":"World Trip"
+                "value":"Local Trip"
             },
             {
                 "trait_type":"city",
-                "value":"Bangkok"
+                "value":"Matsu"
             },
             {
                 "trait_type":"country",
-                "value":"Thailand"
+                "value":"Taiwan"
             },
             {
                 "trait_type":"location",
-                "value":"Wat Arun"
+                "value":"Beigan"
             },
             {
                 "trait_type":"source",
