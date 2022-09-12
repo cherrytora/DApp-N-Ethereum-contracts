@@ -39,6 +39,7 @@ contract Blindbox is ERC721Enumerable, Ownable {
   ) ERC721(_name, _symbol) {
     setBaseURI(_initBaseURI);
     setNotRevealedURI(_initNotRevealedUri);
+    // 發合約的時候直接就先mint給自己
     mint(msg.sender, 5);
   }
 
@@ -123,7 +124,7 @@ contract Blindbox is ERC721Enumerable, Ownable {
     maxMintAmount = _newmaxMintAmount;
   }
   
-  // 設定狀態下的URL
+  // 設定盲盒狀態下的URL
   function setNotRevealedURI(string memory _notRevealedURI) public onlyOwner {
     notRevealedUri = _notRevealedURI;
   }
