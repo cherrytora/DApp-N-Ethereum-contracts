@@ -28,7 +28,7 @@ function reveal() public onlyOwner {
 ```
 
 ### STEP 2. deploy
-1. 這個合約裡有4個留給時候才傳進去的參數，分別是_name、 _symbol、 _initBaseURI和_initNotRevealedUri，所以部署的檔案就不能完全抄以前的，要增加一些東西，，這些參數如果直接寫在合約裡也可以。
+1. 這個合約裡有4個留給時候才傳進去的參數，分別是_name、 _symbol、 _initBaseURI和_initNotRevealedUri，所以部署的檔案就不能完全抄以前的，要增加一些東西，這些參數如果直接寫在合約裡也可以。
 ```javascript
 const hre = require("hardhat");
 
@@ -111,7 +111,7 @@ function _getRandom(uint256 _start, uint256 _end) private view returns(uint256) 
 ```
 
 然後我就碰到瓶頸了ＸＤ
-本來把random直接寫在tokenURL裡，但發現這麼做在查詢URL的時候，會不斷的random，變成查一次改一次？？
+本來把random直接寫在tokenURL裡，但發現這麼做在查詢URL的時候，會不斷的random，變成查一次改一次？？ 
 也許應該再建立一個function去把tokenID對應的URL收起來？
 
 
