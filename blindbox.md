@@ -3,7 +3,7 @@
 - 批次發行盲盒抽抽看！
 - 盲盒分成兩個部分
     1. 第一個部分是先去讀懂參考資料2.中大神寫好的合約，看看基礎的盲盒需要那些功能，看懂了之後部署玩玩看
-    2. 第二個部分是從合約裡面去改成盲盒中5種圖案機率抽抽看！
+    2. 第二個部分是從合約裡面去改成盲盒中5種圖案隨機抽抽看！
 
 參考資料：
 1. [PecuLab Youtube Video](https://youtu.be/3hMidO1TNT8)
@@ -88,9 +88,9 @@ npx hardhat verify --contract contracts/Blindbox.sol:Blindbox --network rinkeby 
 ![](images/Blind_unblind.png)
 
 
-## 機率盲盒抽抽看
+## 隨機盲盒抽抽看
 
-接下來要挑戰機率抽盲盒怎麼寫！
+接下來要挑戰隨機抽盲盒怎麼寫！
 
 
 
