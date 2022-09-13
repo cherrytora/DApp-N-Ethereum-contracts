@@ -92,6 +92,29 @@ npx hardhat verify --contract contracts/Blindbox.sol:Blindbox --network rinkeby 
 
 接下來要挑戰隨機抽盲盒怎麼寫！
 
+參考教學們在合約裡寫一個Random的function，生成偽隨機數列(似乎在solidity無法生成真正的隨機數列？)
+1. https://blog.csdn.net/meta_world/article/details/124418634
+2. https://stackoverflow.com/questions/71425710/solidity-how-to-get-random-number-with-ratio
+3. https://stackoverflow.com/questions/48848948/how-to-generate-a-random-number-in-solidity
+4. https://blog.finxter.com/how-to-generate-random-numbers-in-solidity/
+
+```javascript
+function _getRandom(uint256 _start, uint256 _end) private view returns(uint256) {
+      if(_start == _end){
+          return _start;
+      }
+      uint256 _length = _end - _start;
+      uint256 random = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, msg.sender)));
+      random = random % _length + _start;
+      return random;
+  }
+```
+
+然後我就碰到瓶頸了ＸＤ
+本來把random直接寫在tokenURL裡，但發現這麼做在查詢URL的時候，會不斷的random，變成查一次改一次？？
+也許應該再建立一個function去把tokenID對應的URL收起來？
+
+
 
 
 
