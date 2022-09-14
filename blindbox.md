@@ -213,5 +213,6 @@ uint private _rand = 3; // 設定隨機種子
 > [BlindboxRan2 on etherscan](https://rinkeby.etherscan.io/address/0x68829610899a470298ac0365a2432C7428C9c0CB#readContract) \
 > [BlindboxRan3 on etherscan](https://rinkeby.etherscan.io/token/0x10fd73a7557b399a4937e379FF70d75bB854685c#readContract)
 
-最後做了功課之後發現，盲盒的英文其實不叫blind box，應該叫做mystery box！長知識了！ 
+最後做了功課之後發現，盲盒的英文其實不叫blind box，應該叫做mystery box！長知識了！
+
 Back to [README](README.md)
