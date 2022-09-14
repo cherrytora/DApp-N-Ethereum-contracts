@@ -89,10 +89,12 @@ npx hardhat verify --contract contracts/Blindbox.sol:Blindbox --network rinkeby 
 
 
 ## 隨機盲盒抽抽看
+- 接下來要挑戰隨機抽盲盒怎麼寫！錯誤一起記錄下來
+- 寫隨機盲盒的時候發現[Remix](https://remix-project.org/)真是測試function的好東西！
 
-接下來要挑戰隨機抽盲盒怎麼寫！
+### STEP 1. 寫一個Random function來生成隨機數列
 
-參考教學們在合約裡寫一個Random的function，生成偽隨機數列(似乎在solidity無法生成真正的隨機數列？)
+參考下面教學們寫一個Random function，生成偽隨機數列(似乎在solidity無法生成真正的隨機數列？)
 1. https://blog.csdn.net/meta_world/article/details/124418634
 2. https://stackoverflow.com/questions/71425710/solidity-how-to-get-random-number-with-ratio
 3. https://stackoverflow.com/questions/48848948/how-to-generate-a-random-number-in-solidity
@@ -110,13 +112,103 @@ function _getRandom(uint256 _start, uint256 _end) private view returns(uint256) 
   }
 ```
 
-然後我就碰到瓶頸了ＸＤ
-本來把random直接寫在tokenURL裡，但發現這麼做在查詢URL的時候，會不斷的random，變成查一次改一次？？ 
-也許應該再建立一個function去把tokenID對應的URL收起來？
+#### 瓶頸1 [BlindboxRan.sol](hardhat/contracts/BlindboxRan.sol)
+本來很直覺的想說把Random加在tokenURI中，讓他自動去更新tokenURI就好了，然後我就碰到瓶頸了！哈哈哈哈
+解盲之後查詢tokenURI的確是每個tokenID會對應到隨機的URI，但是每查詢一次相同的tokenURI，就會再random分配一次URI！！也許應該再建立一個function去把tokenID對應的URL收起來？
+```javascript
+function tokenURI(uint256 tokenId)
+    public
+    view
+    virtual
+    override
+    returns (string memory)
+  {
+    require(
+      _exists(tokenId),
+      "ERC721Metadata: URI query for nonexistent token"
+    );
+    
+    if(revealed == false) {
+        return notRevealedUri;
+    }
 
+    // 隨機生成1~5 return一個Random的URI
+    uint256 BDnum = _getRandom(1,6);
+    string memory currentBaseURI = _baseURI();
+    return bytes(currentBaseURI).length > 0
+        ? string(abi.encodePacked(currentBaseURI, BDnum.toString(), baseExtension))
+        : "";
+  }
 
+```
 
+### STEP 2. 建立一個把URI收起來的function
+```javascript
+// 每一個tokenId對應產生一個隨機的URL(1~5)，裝到_tokenURIs這個dic裡面
+mapping(uint256 => string) private _tokenURIs; 
 
+  function _Id_Urls(uint256 tokenId) internal virtual {
+      require(
+          _exists(tokenId),
+          "ERC721Metadata: URI set of nonexistent token"
+      );  // Checks if the tokenId exists
+      uint256 BDnum = _getRandom(1,6);
+      string memory currentBaseURI = _baseURI();
+      _tokenURIs[tokenId] = string(abi.encodePacked(currentBaseURI, BDnum.toString(), baseExtension));
+  }
+```
 
+### STEP 3. 把 _Id_Urls加到mint
+mint產生tokenID的時候就分配一個隨機的Url給每個tokenID
+```javascript
+function mint(address _to, uint256 _mintAmount) public payable {
+    uint256 supply = totalSupply();
+    require(!paused);
+    require(_mintAmount > 0);
+    require(_mintAmount <= maxMintAmount);
+    require(supply + _mintAmount <= maxSupply);
+     
+    if (msg.sender != owner()) {
+        if(whitelisted[msg.sender] != true) {
+          require(msg.value >= cost * _mintAmount);
+        }
+    }
 
+    for (uint256 i = 1; i <= _mintAmount; i++) {
+      _safeMint(_to, supply + i);
+      _Id_Urls(supply + i); // 每個tokenID都分配一個URI
+    }
+  }
+```
 
+#### 瓶頸2 [BlindboxRan2.sol](hardhat/contracts/BlindboxRan2.sol)
+這樣看似完成了，但deploy合約之後發現每一批mint的token都會是相同的URI!一開始以為迴圈沒有跑進去，但對照tokenID確定不是迴圈的問題，那會是什麼問題呢？在重新檢視了很多次之後終於找到了，問題出現在_getRandom！我的_getRandom是這樣寫的
+```javascript
+random = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, msg.sender)))
+```
+
+但是每一批mint的這三個數值會一樣block.difficulty, block.timestamp, msg.sender，導致每一批的URI都是相同的，所以我建立一個_rand，把msg.sender這個參數換成_rand，_getRandom改寫成這樣
+```javascript
+uint private _rand = 3; // 設定隨機種子
+
+//  生成偽隨機數列(似乎無法生成真正的隨機數列？)
+  function _getRandom(uint256 _start, uint256 _end) private returns(uint256) {
+      if(_start == _end){
+          return _start;
+      }
+      uint256 _length = _end - _start;
+      uint256 random = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, _rand)));
+      random = random % _length + _start;
+      _rand++;
+      return random;
+  }
+```
+
+改完後用[Remix](https://remix.ethereum.org/?#code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVApwcmFnbWEgc29saWRpdHkgXjAuOC40OwoKaW1wb3J0ICJAb3BlbnplcHBlbGluL2NvbnRyYWN0c0A0LjcuMi90b2tlbi9FUkMyMC9FUkMyMC5zb2wiOwoKY29udHJhY3QgUG9rZW4yIGlzIEVSQzIwIHsKICAgIGNvbnN0cnVjdG9yKCkgRVJDMjAoIlBva2VuMiIsICJQTzIiKSB7CiAgICAgICAgX21pbnQobXNnLnNlbmRlciwgMTk5NDkyMjQgKiAxMCAqKiBkZWNpbWFscygpKTsKICAgIH0KfQo&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.17+commit.8df45f5f.js)測試就發現成功了！同一批mint的盲盒在解盲後會有不同的URI了!
+成功的程式碼放在[這邊](hardhat/contracts/BlindboxRan3.sol)~
+
+#### BlindboxRanS on etherscan
+這三個版本的合約etherscan的連結在下面，有興趣的人可以玩玩看哈哈～
+[BlindboxRan on etherscan](https://rinkeby.etherscan.io/address/0x5B7EA69BD08dC8553e952F7208d9bCEEBd584d13#readContract)
+[BlindboxRan2 on etherscan](https://rinkeby.etherscan.io/address/0x68829610899a470298ac0365a2432C7428C9c0CB#readContract)
+[BlindboxRan3 on etherscan](https://rinkeby.etherscan.io/token/0x10fd73a7557b399a4937e379FF70d75bB854685c#readContract)

@@ -1,24 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0
 
-// Amended by HashLips
-/**
-    !Disclaimer!
-    These contracts have been used to create tutorials,
-    and was created for the purpose to teach people
-    how to create smart contracts on the blockchain.
-    please review this code on your own before using any of
-    the following code for production.
-    HashLips will not be liable in any way if for the use 
-    of the code. That being said, the code has been tested 
-    to the best of the developers' knowledge to work as intended.
-*/
-
 pragma solidity >=0.7.0 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract BlindboxRan is ERC721Enumerable, Ownable {
+contract BlindboxRan3 is ERC721Enumerable, Ownable {
   using Strings for uint256;
 
   string public baseURI;
@@ -28,8 +15,10 @@ contract BlindboxRan is ERC721Enumerable, Ownable {
   uint256 public maxMintAmount = 5; // 一次可以買幾張
   bool public paused = false; // 是否停賣
   bool public revealed = false; //  是否解盲
-  string public notRevealedUri;
+  string public notRevealedUri; // 盲盒的URI
+  uint private _rand = 3; // 設定隨機種子
   mapping(address => bool) public whitelisted;
+  mapping(uint256 => string) private _tokenURIs; // 把他想像成dic
 
   constructor(
     string memory _name,
@@ -56,7 +45,6 @@ contract BlindboxRan is ERC721Enumerable, Ownable {
     require(_mintAmount <= maxMintAmount);
     require(supply + _mintAmount <= maxSupply);
     
-
     if (msg.sender != owner()) {
         if(whitelisted[msg.sender] != true) {
           require(msg.value >= cost * _mintAmount);
@@ -65,6 +53,7 @@ contract BlindboxRan is ERC721Enumerable, Ownable {
 
     for (uint256 i = 1; i <= _mintAmount; i++) {
       _safeMint(_to, supply + i);
+      _Id_Urls(supply + i);
     }
   }
 
@@ -82,15 +71,26 @@ contract BlindboxRan is ERC721Enumerable, Ownable {
   }
 
   //  生成偽隨機數列(似乎無法生成真正的隨機數列？)
- 
-  function _getRandom(uint256 _start, uint256 _end) private view returns(uint256) {
+  function _getRandom(uint256 _start, uint256 _end) private returns(uint256) {
       if(_start == _end){
           return _start;
       }
       uint256 _length = _end - _start;
-      uint256 random = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, msg.sender)));
+      uint256 random = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, _rand)));
       random = random % _length + _start;
+      _rand++;
       return random;
+  }
+
+// 這邊是設定每個URL建立一個array，去把不同URI各自 收起來
+  function _Id_Urls(uint256 tokenId) internal virtual {
+      require(
+          _exists(tokenId),
+          "ERC721Metadata: URI set of nonexistent token"
+      );  // Checks if the tokenId exists
+      uint256 BDnum = _getRandom(1,6);
+      string memory currentBaseURI = _baseURI();
+      _tokenURIs[tokenId] = string(abi.encodePacked(currentBaseURI, BDnum.toString(), baseExtension));
   }
 
   function tokenURI(uint256 tokenId)
@@ -109,12 +109,7 @@ contract BlindboxRan is ERC721Enumerable, Ownable {
         return notRevealedUri;
     }
 
-    // 隨機生成1~5
-    uint256 BDnum = _getRandom(1,6);
-    string memory currentBaseURI = _baseURI();
-    return bytes(currentBaseURI).length > 0
-        ? string(abi.encodePacked(currentBaseURI, BDnum.toString(), baseExtension))
-        : "";
+    return _tokenURIs[tokenId];
   }
 
   // only owner 
