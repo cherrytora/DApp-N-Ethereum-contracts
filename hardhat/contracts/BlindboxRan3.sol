@@ -82,7 +82,7 @@ contract BlindboxRan3 is ERC721Enumerable, Ownable {
       return random;
   }
 
-// 這邊是設定每個URL建立一個array，去把不同URI各自 收起來
+// 這邊是設定每個URL建立一個array，去把不同URI各自收起來
   function _Id_Urls(uint256 tokenId) internal virtual {
       require(
           _exists(tokenId),
