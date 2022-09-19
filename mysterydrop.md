@@ -1,7 +1,7 @@
 # Create a mystery drop contract
 
 - 這個合約要做的是每一次買可以得到不一定個數的token!
-- 有點像盲盒，但是少了開合的動作～
+- 有點像盲盒，但是少了開盒的動作～
 
 參考資料：
 1. [實踐一個簡單的盲盒合約](https://blog.csdn.net/meta_world/article/details/124418634)
