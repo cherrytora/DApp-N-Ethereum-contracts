@@ -47,7 +47,7 @@ contract BlindboxRan3 is ERC721Enumerable, Ownable {
     
     if (msg.sender != owner()) {
         if(whitelisted[msg.sender] != true) {
-          require(msg.value >= cost * _mintAmount);
+          require(msg.value >= _mintAmount);
         }
     }
 
