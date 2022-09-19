@@ -7,7 +7,7 @@
 3. [在發行NFT的smart contract中加入可互動funciton](AddContractFunction.md) --ERC 721
 4. [驗證合約 & 代銷合約](Verifycontract_Vendorcontract.md) 
 5. [發行盲盒](blindbox.md) --ERC 721 Enumerable
-6. 發行抽Token數量的盲盒 .....還在努力中
+6. [發行抽Token數量的盲盒](mysterydrop.md)
 7. 怎麼用自己的Token買NFT ? .....還在努力中
 
 ### 參考資料：
