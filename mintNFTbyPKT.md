@@ -8,6 +8,7 @@
 5. [ERC20 - Approve & TransferFrom not working](https://ethereum.stackexchange.com/questions/73714/erc20-approve-transferfrom-not-working)
 6. [call the erc20 approve function from another](https://forum.openzeppelin.com/t/is-it-possible-to-call-the-erc20-approve-function-from-another-contract/2758)
 7. [Approve ERC20 token inside a contract function](https://ethereum.stackexchange.com/questions/112644/approve-erc20-token-inside-a-contract-function)
+8. [spend-ERC20-create-ERC721](https://github.com/fulldecent/spend-ERC20-create-ERC721)
 
 
 ## Steps
@@ -16,7 +17,7 @@
 3. 一樣要寫一個withdraw，但這邊要提的錢不是Ether，而是PKT
 4. 到自己的token那邊把授權合約可以從別人那邊提領PKT（transferFrom功能）
 
-完整的code到[這邊]()看喔！
+完整的code到[這邊](hardhat/contracts/mintbyPKT.sol)看喔！
 
 
 ### Step 1. 把自己發的token接到合約裡面
