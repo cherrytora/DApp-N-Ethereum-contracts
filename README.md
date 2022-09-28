@@ -8,7 +8,7 @@
 4. [驗證合約 & 代銷合約](Verifycontract_Vendorcontract.md) 
 5. [發行盲盒](blindbox.md) --ERC 721 Enumerable
 6. [發行抽Token數量的盲盒](mysterydrop.md)
-7. 怎麼用自己的Token買NFT ? .....還在努力中
+7. [怎麼用自己的Token買NFT](mintNFTbyPKT.md)
 
 ### 參考資料：
 1. [PecuLab共學Youtube list](https://www.youtube.com/playlist?list=PLH3VeiMX0ckiCqHLpLIBOMXQRtF_Vs3Eo)

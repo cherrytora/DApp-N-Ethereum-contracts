@@ -9,6 +9,7 @@
 1. [PecuLab Youtube Video](https://youtu.be/3hMidO1TNT8)
 2. [solidity_smart_contracts](https://github.com/HashLips/solidity_smart_contracts/blob/main/contracts/NFT/NFT_REVEAL.sol)
 3. [ERC721Enumerable](https://docs.openzeppelin.com/contracts/4.x/api/token/erc721#ERC721Enumerable)
+4. [walletOfOwner的用法](https://ithelp.ithome.com.tw/articles/10278782)
 
 ## 盲盒合約閱讀及Deploy
 

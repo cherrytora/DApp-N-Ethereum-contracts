@@ -4,32 +4,35 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import './PokenTest.sol';
 
-contract BlindboxRan3 is ERC721Enumerable, Ownable {
+contract mintbyPKT is ERC721Enumerable, Ownable {
   using Strings for uint256;
 
   string public baseURI;
   string public baseExtension = ".json";
-  uint256 public cost = 0.05 ether; // 一張多少錢
-  uint256 public maxSupply = 100; // 一共發行多少張
-  uint256 public maxMintAmount = 5; // 一次可以買幾張
-  bool public paused = false; // 是否停賣
-  bool public revealed = false; //  是否解盲
-  string public notRevealedUri; // 盲盒的URI
-  uint private _rand = 3; // 設定隨機種子
+  uint256 public maxSupply = 100; 
+  uint256 public maxMintAmount = 5; 
+  bool public paused = false; 
+  bool public revealed = false; 
+  string public notRevealedUri; 
+  uint private _rand = 3; 
   mapping(address => bool) public whitelisted;
-  mapping(uint256 => string) private _tokenURIs; // 把他想像成dic
+  mapping(uint256 => string) private _tokenURIs;
+  // 設定一個盲盒的價錢
+  uint256 public price = 513;
+
+  // 把PKT接過來
+  PokenTest public PKT;
 
   constructor(
-    string memory _name,
-    string memory _symbol,
     string memory _initBaseURI,
     string memory _initNotRevealedUri
-  ) ERC721(_name, _symbol) {
+  ) ERC721("mintbyPKT2", "MBPKT2") {
     setBaseURI(_initBaseURI);
     setNotRevealedURI(_initNotRevealedUri);
-    // 發合約的時候直接就先mint給自己
-    mint(msg.sender, 3);
+    // 把PKT接過來
+    PKT = PokenTest(0x73715Ec8e26FF669F246753699e618871E430f52);
   }
 
   // internal
@@ -38,26 +41,24 @@ contract BlindboxRan3 is ERC721Enumerable, Ownable {
   }
 
   // public
-  function mint(address _to, uint256 _mintAmount) public payable {
+  function mint(uint256 _mintAmount) public {
     uint256 supply = totalSupply();
     require(!paused);
     require(_mintAmount > 0);
     require(_mintAmount <= maxMintAmount);
     require(supply + _mintAmount <= maxSupply);
+    // 確認PKT額度
+    require(PKT.allowance(msg.sender, address(this)) >= price * _mintAmount, "Not enough of PKT");
     
-    if (msg.sender != owner()) {
-        if(whitelisted[msg.sender] != true) {
-          require(msg.value >= _mintAmount);
-        }
-    }
+    // 把PKT從msg.sender轉到這個合約裡
+    PKT.transferFrom(msg.sender, address(this), price * _mintAmount);
 
     for (uint256 i = 1; i <= _mintAmount; i++) {
-      _safeMint(_to, supply + i);
+      _safeMint(msg.sender, supply + i);
       _Id_Urls(supply + i);
     }
   }
-  
-  // 可以查詢這個 owner 持有的所有我們的 NFT！主要是利用 balanceOf(_owner) 來看出他有多少資產，然後再利用 tokenOfOwnerByIndex(_owner, _index) 來一個一個調閱出來！
+
   function walletOfOwner(address _owner)
     public
     view
@@ -71,7 +72,6 @@ contract BlindboxRan3 is ERC721Enumerable, Ownable {
     return tokenIds;
   }
 
-  // 生成偽隨機數列(似乎無法生成真正的隨機數列？)
   function _getRandom(uint256 _start, uint256 _end) private returns(uint256) {
       if(_start == _end){
           return _start;
@@ -83,7 +83,6 @@ contract BlindboxRan3 is ERC721Enumerable, Ownable {
       return random;
   }
 
-// 這邊是設定每個URL建立一個array，去把不同URI各自收起來
   function _Id_Urls(uint256 tokenId) internal virtual {
       require(
           _exists(tokenId),
@@ -114,7 +113,6 @@ contract BlindboxRan3 is ERC721Enumerable, Ownable {
   }
 
   // only owner 
-  // 解盲按鈕(可以解盲跟變成盲盒狀態)
   function reveal() public onlyOwner {
       if (revealed==true) {
         revealed = false;
@@ -123,11 +121,6 @@ contract BlindboxRan3 is ERC721Enumerable, Ownable {
       {
         revealed = true;
       }   
-  }
-  
-  // 設定新的價錢
-  function setCost(uint256 _newCost) public onlyOwner {
-    cost = _newCost;
   }
 
   // 設定新的一次最大購買數
@@ -165,20 +158,8 @@ contract BlindboxRan3 is ERC721Enumerable, Ownable {
     whitelisted[_user] = false;
   }
 
-  // 領錢
-  function withdraw() public payable onlyOwner {
-    // This will pay HashLips 5% of the initial sale.
-    // You can remove this if you want, or keep it in to support HashLips and his channel.
-    // =============================================================================
-    (bool hs, ) = payable(0x943590A42C27D08e3744202c4Ae5eD55c2dE240D).call{value: address(this).balance * 5 / 100}("");
-    require(hs);
-    // =============================================================================
-    
-    // This will payout the owner 95% of the contract balance.
-    // Do not remove this otherwise you will not be able to withdraw the funds.
-    // =============================================================================
-    (bool os, ) = payable(owner()).call{value: address(this).balance}("");
-    require(os);
-    // =============================================================================
+  // 領錢 
+  function withdraw() public onlyOwner {
+    PKT.transfer(msg.sender, PKT.balanceOf(address(this)));
   }
 }
