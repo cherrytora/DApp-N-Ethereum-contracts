@@ -6,6 +6,7 @@
 參考資料：
 1. [PecuLab Youtube Video](https://youtu.be/4kCZ4OsZx9Q)
 2. [hardhat-etherscan](https://hardhat.org/hardhat-runner/plugins/nomiclabs-hardhat-etherscan)
+3. [Use plugin in the Remix to verify contract](https://forum.openzeppelin.com/t/use-plugin-in-the-remix-to-verify-contract/22759)
 
 ## Verify contract 驗證合約
 * 驗證合約的重要性:合約部署之後，在Ethersacn上只會出現bytecode，而不會出現合約明碼（也就是我們寫的code)，在這樣的狀況下其他人無法閱讀我們的合約內容，也沒辦法得知實際上這個合約提供了哪些function可以使用。驗證完之後才會出現合約的明碼，也能看到有哪些function可以使用。透過這些驗證過的合約，我們可以去看合約的提供商是不是真的提供了他們宣告的功能，或者去比對合約的用處是否跟他們宣告的一樣，確認合約中提供的function和提供商說宣稱一致，才表示這個合約可信、可互動喔。
@@ -20,6 +21,7 @@
 ![](images/verify_read_contract.png)
 ![](images/verify_write_contract.png)
 
+* 如果用Remix部署合約的話，也可以直接用Remix的來驗證合約，[這篇文章](https://forum.openzeppelin.com/t/use-plugin-in-the-remix-to-verify-contract/22759)寫得很詳細，就不再另外寫說明了
 
 ### STEP 1. Create & Set API key for etherscan
 1. 先到[etherscan](https://etherscan.io/)註冊一個帳號，申請API
@@ -72,6 +74,7 @@ npx hardhat verify --contract contracts/PokenTest.sol:PokenTest --network rinkeb
 ![](images/0x73715Ec8e26FF669F246753699e618871E430f52.png)
 - bytecode相同但沒有進行驗證的合約一起得到驗證了
 ![](images/0x0268E137120fD1De21e5e883979396A851462ac9.png)
+
 
 ## Create Vendor NFT
 ### STEP 1. vendor 合約
